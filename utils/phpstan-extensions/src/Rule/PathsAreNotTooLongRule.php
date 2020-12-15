@@ -8,11 +8,14 @@ use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PHPStan\Node\FileNode;
+use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use Rector\PHPStanExtensions\NodeAnalyzer\SymfonyConfigRectorValueObjectResolver;
 use Rector\PHPStanExtensions\NodeAnalyzer\TypeAndNameAnalyzer;
 use Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\PHPStanRules\Naming\SimpleNameResolver;
+
 
 /**
  * @see \Rector\PHPStanExtensions\Tests\Rule\PathsAreNotTooLongRule\PathsAreNotTooLongRuleTest
@@ -38,7 +41,6 @@ final class PathsAreNotTooLongRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $fileName = $scope->getFile();
-
         if (!$fileName) {
             return [];
         }
