@@ -9,13 +9,13 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PHPStan\Node\FileNode;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use Rector\PHPStanExtensions\NodeAnalyzer\SymfonyConfigRectorValueObjectResolver;
 use Rector\PHPStanExtensions\NodeAnalyzer\TypeAndNameAnalyzer;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\PHPStanRules\Naming\SimpleNameResolver;
-
 
 /**
  * @see \Rector\PHPStanExtensions\Tests\Rule\PathsAreNotTooLongRule\PathsAreNotTooLongRuleTest
