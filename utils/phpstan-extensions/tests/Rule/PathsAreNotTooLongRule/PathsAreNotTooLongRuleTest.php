@@ -10,18 +10,25 @@ use Rector\PHPStanExtensions\Rule\PathsAreNotTooLongRule;
 use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
 use PhpParser\Node\Stmt\ClassLike;
 use Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\PHPStanExtensions\Rule\KeepRectorNamespaceForRectorRule;
 
 final class PathsAreNotTooLongRuleTest extends AbstractServiceAwareRuleTestCase
 {
     /**
-     * @param array<string|string[]> $expectedError
+     * @dataProvider provideData()
+     * @param array<string|string[]|int[]> $expectedErrorsWithLines
      */
-    public function testRule(string $filePath, array $expectedError): void
+    public function testRule(string $filePath, array $expectedErrorsWithLines): void
     {
-        // $classLike = new ClassLike();
-        // $classLike->setAttribute(SmartFileInfo::class);
+        $this->analyse([$filePath], $expectedErrorsWithLines);
+    }
 
-        // $this->assertSame("a", "a");
+    public function provideData(): Iterator
+    {
+        yield [__DIR__ . '/Fixture/Rector/ClassInCorrectNamespaceRector.php', []];
+
+        $errorMessage = sprintf(KeepRectorNamespaceForRectorRule::ERROR_MESSAGE, 'WrongClass');
+        yield [__DIR__ . '/Fixture/Rector/WrongClass.php', [[$errorMessage, 7]]];
     }
 
     protected function getRule(): Rule
