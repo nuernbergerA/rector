@@ -24,6 +24,7 @@ use Symplify\PHPStanRules\Naming\SimpleNameResolver;
 final class PathsAreNotTooLongRule implements Rule
 {
     private const MAX_LENGTH = 175;
+
     /**
      * @var string
      */
