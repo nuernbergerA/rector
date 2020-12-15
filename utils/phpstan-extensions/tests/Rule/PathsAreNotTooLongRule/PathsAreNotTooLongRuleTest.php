@@ -19,8 +19,8 @@ final class PathsAreNotTooLongRuleTest extends AbstractServiceAwareRuleTestCase
      */
     public function testRule(string $filePath, array $expectedError): void
     {
-        $classLike = new ClassLike();
-        $classLike->setAttribute(SmartFileInfo::class);
+        // $classLike = new ClassLike();
+        // $classLike->setAttribute(SmartFileInfo::class);
 
         // $this->assertSame("a", "a");
     }
