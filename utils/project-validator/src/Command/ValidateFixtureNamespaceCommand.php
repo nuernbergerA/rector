@@ -161,6 +161,63 @@ final class ValidateFixtureNamespaceCommand extends Command
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @return SmartFileInfo[]
+     */
+    private function getFixtureFiles(): array
+    {
+        $finder = new Finder();
+        $finder = $finder->files()
+            ->name('#\.php\.inc$#')
+            ->notName('#empty_file\.php\.inc$#')
+            ->path('#/Fixture/#')
+            ->notPath('#/blade-template/#')
+            ->notPath('#/RenameNamespaceRector/#')
+            ->notPath('#/TemplateAnnotationToThisRenderRector/#')
+            ->notPath('#bootstrap_names\.php\.inc#')
+            ->notPath('#trait_name\.php\.inc#')
+            ->notName('#_\.php\.inc$#')
+            ->notPath('#/ParamTypeDeclarationRector/#')
+            ->notPath('#/ReturnTypeDeclarationRector/#')
+            ->in(__DIR__ . '/../../../../tests')
+            ->in(__DIR__ . '/../../../../packages/*/tests')
+            ->in(__DIR__ . '/../../../../rules/*/tests');
+
+        return $this->finderSanitizer->sanitize($finder);
+    }
+
+    private function getExpectedNamespace(string $path, string $relativePath): ?string
+    {
+        $relativePath = str_replace('/', '\\', dirname($relativePath, PATHINFO_DIRNAME));
+        foreach ($this->psr4autoloadPaths as $prefix => $psr4autoloadPath) {
+            if (is_string($psr4autoloadPath) && $psr4autoloadPath === $path) {
+                return $prefix . $relativePath;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array<int, array<int, string>> $matchAll
+     */
+    private function isFoundCorrectNamespace(array $matchAll, string $expectedNamespace): bool
+    {
+        if ($matchAll === []) {
+            return true;
+        }
+
+        $countMatchAll = count($matchAll);
+        if ($countMatchAll === 1 && $matchAll[0][1] === $expectedNamespace) {
+            return true;
+        }
+
+        return $countMatchAll === 2 && $matchAll[0][1] === $expectedNamespace && $matchAll[1][1] === $expectedNamespace;
+    }
+
+    /**
+>>>>>>> ab61947fc... Restore ValidateFixtureNamespaceCommand.php
      * @param array<int, array<int, string>> $matchAll
      */
     private function getIncorrectNamespace(array $matchAll, string $expectedNamespace): string
