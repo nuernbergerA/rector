@@ -23,7 +23,10 @@ use Symplify\PHPStanRules\Naming\SimpleNameResolver;
  */
 final class PathsAreNotTooLongRule implements Rule
 {
-    private const MAX_LENGTH = 175;
+    /**
+     * In windows the max-path length is 260 chars. we give a bit room for the path up to the rector project.
+     */
+    private const MAX_LENGTH = 200;
 
     /**
      * @var string
